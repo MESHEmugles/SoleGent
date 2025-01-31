@@ -1,9 +1,5 @@
 from django.db import models
-from django.template.defaultfilters import slugify
 
-from django_ckeditor_5.fields import CKEditor5Field
-from taggit.managers import TaggableManager
-from cloudinary.models import CloudinaryField
 from commerce.models import *
 
 # Create your models here.

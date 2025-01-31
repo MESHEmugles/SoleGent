@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'commerce',
     'productcart',
     'taggit',
+    'cloudinary_storage',
     'cloudinary',
     'djangoql',
     'import_export',
     'django_ckeditor_5',
     'mathfilters',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +136,22 @@ USE_I18N = True
 USE_TZ = True
 
 
+###################################
+    ##  CLOUDINARY IMAGE AND VIDEO UPLOAD SETTINGS ##
+#################################### 
+# cloudinary.config( 
+#   cloud_name = config("CLOUNDINARY_CLOUD_NAME"), 
+#   api_key = config("CLOUDINARY_API_KEY"), 
+#   api_secret = config("CLOUDINARY_API_SECRET"),
+#   secure = True
+# )
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config("CLOUNDINARY_CLOUD_NAME"),
+    'API_KEY': config("CLOUDINARY_API_KEY"),
+    'API_SECRET': config("CLOUDINARY_API_SECRET")
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -148,9 +166,11 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder',
 ]
 
+# CLOUDINARY_NAME= config("CLOUDINARY_CLOUD_NAME")
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -203,7 +223,15 @@ CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': ['heading', '|', 'bold', 'italic', 'link',
                     'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
-
+        'skin': 'moono-lisa',
+        'toolbar': 'full',
+        'extraPlugins': ','.join([
+            'image2',
+            'uploadimage',
+            'justify'
+        ]),
+        'removePlugins': 'exportpdf',
+        'extraAllowedContent': 'img[alt,border,width,height,align];'
     },
     'extends': {
         'blockToolbar': [
@@ -260,21 +288,12 @@ CKEDITOR_5_CONFIGS = {
     }
 }
 
+
 ###################################
     ##  TAG CASE SENSITIVE ##
 #################################### 
 TAGGIT_CASE_INSENSITIVE = True
 
-
-###################################
-    ##  CLOUDINARY IMAGE AND VIDEO UPLOAD SETTINGS ##
-#################################### 
-cloudinary.config( 
-  cloud_name = config("CLOUNDINARY_CLOUD_NAME"), 
-  api_key = config("CLOUDINARY_API_KEY"), 
-  api_secret = config("CLOUDINARY_API_SECRET"),
-  secure = True
-)
 
 ###############   JAZZMIN SETTINGS ###################
 JAZZMIN_SETTINGS = {
