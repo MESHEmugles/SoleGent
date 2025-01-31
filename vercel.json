@@ -16,6 +16,10 @@
             "dest": "/base/static/$1"
         },
         {
+            "src": "/media/(.*)",
+            "dest": "/uploads/$1"
+        },
+        {
             "src": "/(.*)",
             "dest": "cores/wsgi.py"
         }
