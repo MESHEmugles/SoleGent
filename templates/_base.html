@@ -149,7 +149,6 @@
             $('#detailsubmit').click(function(e){
                 e.preventDefault();
                 var prodid = $("#prodid").val()
-                console.log(prodid)
                 $.ajax({
                     type: 'POST',
                     url: '{% url "commerce:addtocart" %}',
@@ -160,8 +159,8 @@
                         action: 'post'
                     },
                     success: function(response){
-                        document.getElementById("currentqnt").innerHTML = response.qnt
-                        showToast(`${response.message}`, 'bg-[#111827]');
+                        document.querySelector("#currentqnt").innerHTML = response['qnt']
+                        showToast(`${response['message']}`, 'bg-[#111827]');
                     },
                     error: function(xhr, errmsg, err){
                         showToast(`${errmsg}`, 'bg-red-500');
@@ -199,7 +198,7 @@
                         action: 'post'
                     },
                     success: function(json){
-                        showToast(`${json.message}`, 'bg-emerald-500');
+                        showToast(`${json['message']}`, 'bg-[#111827]');
                         console.log(json)
                         setTimeout(() => window.location.reload(), 1000);
                     },
