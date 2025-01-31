@@ -1,0 +1,102 @@
+{% extends "_base.html" %}
+{% load humanize %}
+
+
+
+{% load static %}
+{% comment %} {% load humanize %} {% endcomment %}
+
+
+<!-- title section -->
+{% block title %} | 
+    {% if prodlist %} 
+        {% for item in prodlist  %} 
+            {{item.name}}
+        {% endfor %} 
+    {% endif %}
+{% endblock title %}
+
+
+<!-- upper header section -->
+{% block header %}
+  {% include "components/navbar.html" %}
+{% endblock header %}
+
+<!--content -->
+{% block content %}
+<div class="container mx-auto px-5 flex-grow">
+    {% if messages %}
+        <div id="alert-container" class="fixed top-4 right-4 space-y-4 z-50">
+            {% for message in messages %}
+                <div class="alert border px-4 py-3 rounded relative flex items-center justify-between
+                    {% if message.tags == 'success' %} bg-green-100 border-green-400 text-green-700 
+                    {% elif message.tags == 'error' %} bg-red-100 border-red-400 text-red-700 
+                    {% elif message.tags == 'warning' %} bg-yellow-100 border-yellow-400 text-yellow-700 
+                    {% else %} bg-blue-100 border-blue-400 text-blue-700 {% endif %}" role="alert"
+                >
+                    <span>{{ message }}</span>
+                    <!-- Close button -->
+                    <button class="close-alert text-gray-700 hover:text-gray-900 ml-4">
+                        ✖
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}  
+  
+    <div class='md:ml-6 pt-3 md:pl-6'>
+        {% if category %}
+            <p class='font-normal leading-9 text-base lg:text-2xl font-sans md:ml-6 md:pl-6 pt-2 pb-6 mb-6'><small class="text-base">category ></small> {{category.name}}</p> 
+        {% endif %}
+    </div>
+    <main class='md:mx-6 md:px-6 py-6 my-6'>
+        <div class="grid grid-cols-2 md:grid-cols-4 place-content-center md:ml-6 md:pl-6">
+            {% if prodlist %}
+                {% for item in prodlist  %}
+                    <div class="w-10/12 bg-[#F2F4F7]">
+                        <a href="{% url 'commerce:detail' item.slug %}">
+                            {% if item.cloundImage is not True %}
+                                <img id='img' class="h-28 lg:h-48 w-11/12 lg:w-screen" src="{{ item.image.url }}" alt="product img" />
+                            {% else %}
+                                <img id='img' class="h-28 lg:h-48 w-11/12 lg:w-screen" src="{{ item.cloundImage.url }}" alt="product img" /> 
+                            {% endif %}
+                        </a>
+                        <div class="md:px-1 pb-5 py-3">
+                            <a href="{% url 'commerce:category' %}">
+                                <p class="text-sm font-sans leading-6 font-normal text-[#3a3a3a]">{{ item.category.name }}</p>
+                            </a>
+                            <a href="{% url 'commerce:detail' item.slug %}">
+                                <h5 class="text-base font-sans leading-6 font-bold text-black">{{item.name}}</h5>
+                            </a>
+                            <div class="flex items-center mt-2.5 mb-5">
+                                <span class="text-sm font-bold text-[#3a3a3a] leading-6">₦{{item.price|intcomma}}</span>
+                            </div>
+                            <form action="{% url 'commerce:addtocart' %}" method="POST" class="d-flex">
+                            {% csrf_token %}
+                                <input type="hidden"
+                                    name="quantity" class="" placeholder="1" value="1">
+
+                                <input type="hidden" name="prodids" value="{{item.pk}}">
+                                
+                                <div class="flex md:items-center justify-between">
+                                    <button href="#" type= "submit" name="cart" value="cart" class="text-white bg-[#B1250A] hover:bg-black focus:ring-4 focus:outline-none focus:ring-black font-bold rounded-lg text-base px-5 py-2.5 text-center dark:bg-[#B1250A] dark:hover:bg-black dark:focus:ring-[#B1250A]">Add to cart</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %} 
+            {% endif %}
+        </div>
+    </main>
+</div>
+            
+
+{% endblock content %}
+
+
+
+
+<!-- footer content -->
+{% block footer %}
+  {% include "components/footer.html" %}
+{% endblock footer %}

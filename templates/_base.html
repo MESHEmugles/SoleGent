@@ -1,0 +1,315 @@
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home {% block title %} {% endblock title %}</title>
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    
+    <!-- Owl Carousel CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.8s ease-out; }
+        .carousel-track { scrollbar-width: none; }
+        .carousel-track::-webkit-scrollbar { display: none; }
+    </style>
+
+</head>
+
+<body class="min-h-screen flex flex-col bg-[#F2F4F7]">
+    <!-- upper header section -->
+    {% block header %}
+      
+    {% endblock header %}
+
+    <!-- banner section -->
+    {% block banner %}
+    
+    {% endblock banner %}
+
+    <!-- first content -->
+    {% block content %}
+    
+    {% endblock content %}
+
+  
+    {% block newsletter %}
+      
+    {% endblock newsletter %}
+    
+    <!-- footer section -->    
+    {% block footer %}
+      
+    {% endblock footer %}
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel({
+                margin: 30,
+                responsiveClass: true,
+                nav: true,
+                dots: true,
+                autoplay: true,
+                items: 3,
+                fluidSpeed: 200,
+                smartSpeed: 1000,
+                responsive: {0: {items: 1,},400: {items: 2,},600: {items: 3,}, }
+            });
+
+            function showToast(message, bgColor) {
+                const toast = document.createElement('div');
+                toast.className = `fixed top-10 right-4 ${bgColor} z-[99] text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 opacity-0`;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.classList.remove('opacity-0'), 1800);
+                setTimeout(() => {
+                    toast.classList.add('opacity-0');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3500);
+            }
+
+            $('#decrementBtn').click(function (e) {
+               e.preventDefault()
+                var quantityInput = $('#quantityInput');
+                // Decrease the value by 1, but ensure it doesn't go below 0
+                quantityInput.val(Math.max(1, parseInt(quantityInput.val()) - 1));
+            });
+
+            $('#incrementBtn').click(function (e) {
+                e.preventDefault()
+                var quantityInput = $('#quantityInput');
+                // Increase the value by 1
+                quantityInput.val(parseInt(quantityInput.val()) + 1);
+            });
+
+            $('#refresh').click(function(e){
+                e.preventDefault();
+                var prod_id = $(this).closest('.item_data').find('.prod_id').val();
+                //var change = $(this).attr('id') === 'decrementBtn' ? -1 : 1;
+                //quantityInput.val(Math.max(1, parseInt(quantityInput.val()) + change));
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "commerce:updatecart" %}',
+                    data: {
+                        post_id: prod_id,
+                        qty_update: $('#quantityInput').val(),
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                        action: 'post'
+                    },
+                    success: function(json){
+                        document.getElementById("price").innerHTML = json['cartsub']
+                        document.getElementById("subtotal").innerHTML = json['subtotal']
+                        document.getElementById("count").innerHTML = json['qnt']
+                        document.getElementById("counts").innerHTML = json['qnt']
+                        document.getElementById("currentqnt").innerHTML = json['qnt']
+
+                        showToast(`${json.message}`, 'bg-emerald-500');
+                        //var subtotal = $(this).closest('.item_data').find('#subtotal')
+                        //subtotal.text(json['cartsub']);
+                        //$('#quantityInput').val(json['qnt']);
+                        console.log(json)
+                    },
+                    error: function(rs, e){
+                        showToast(`${rs.error}`, 'bg-red-500');
+                        console.log(rs.error);
+                    },
+                });
+            });
+
+            $('#detailsubmit').click(function(e){
+                e.preventDefault();
+                var prodid = $("#prodid").val()
+                console.log(prodid)
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "commerce:addtocart" %}',
+                    data: {
+                        qty_new: $(".quantityInput").val(),
+                        prod_id: prodid,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                        action: 'post'
+                    },
+                    success: function(response){
+                        document.getElementById("currentqnt").innerHTML = response.qnt
+                        showToast(`${response.message}`, 'bg-[#111827]');
+                    },
+                    error: function(xhr, errmsg, err){
+                        showToast(`${errmsg}`, 'bg-red-500');
+                        console.log(errmsg);
+                    },
+                });
+            });
+
+            const savedData = {{ request.session.checkout_info|default:'{}'|safe }};
+    
+            $('#checkoutForm').submit(function(e) {
+                // Validate payment method
+                if (!$('input[name="payment_method"]:checked').val()) {
+                    alert('Please select a payment method');
+                    return false;
+                }
+                
+                // Validate terms agreement
+                if (!$('#id_terms').is(':checked')) {
+                    alert('You must agree to the terms and conditions');
+                    return false;
+                }
+            });
+
+            $('.delete').click(function(e){
+                e.preventDefault();
+                let prod_id = $(this).closest('.delete-item').find('.deletecart').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "commerce:remove_item" %}',
+                    data: {
+                        deletecart: prod_id,
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                        action: 'post'
+                    },
+                    success: function(json){
+                        showToast(`${json.message}`, 'bg-emerald-500');
+                        console.log(json)
+                        setTimeout(() => window.location.reload(), 1000);
+                    },
+                    error: function(rs, e){
+                        showToast(`${rs.error}`, 'bg-red-500');
+                        console.log(rs.error);
+                    },
+                });
+            });
+
+            const alerts = document.querySelectorAll(".alert");
+
+            // Auto-remove after 4 seconds
+            alerts.forEach((alert) => {
+                setTimeout(() => {
+                    alert.classList.add("opacity-0", "transition-opacity", "duration-500");
+                    setTimeout(() => alert.remove(), 500); // Remove from DOM
+                }, 4000);
+            
+                // Close manually
+                alert.querySelector(".close-alert").addEventListener("click", function () {
+                    alert.classList.add("opacity-0", "transition-opacity", "duration-500");
+                    setTimeout(() => alert.remove(), 500);
+                });
+            });
+
+            
+            /**
+            * Show a loading spinner and disable a button.
+            * @param {HTMLElement} button - The button element.
+            * @param {HTMLElement} spinner - The spinner element.
+            */
+            function showLoadingSpinner(button, spinner) {
+                button.disabled = true;
+                spinner.classList.remove("hidden");
+                button.classList.add("hidden")
+            }
+        
+            /**
+            * Hide a loading spinner and reset the button state.
+            * @param {HTMLElement} button - The button element.
+            * @param {HTMLElement} spinner - The spinner element.
+            * @param {string} defaultText - The default button text.
+            * @param {string} feedbackClass - Optional feedback class to reset button styling.
+            */
+            function hideLoadingSpinner(button, spinner, defaultText, feedbackClass) {
+                setTimeout(() => {
+                    button.classList.remove("hidden")
+                    button.disabled = false;
+                    spinner.classList.add("hidden");
+                    button.innerHTML = defaultText;
+                    button.className = `px-4 py-2 text-white rounded-md ${feedbackClass}`;
+                }, 2000);
+            }
+        
+            /**
+            * Update button feedback with success or failure.
+            * @param {HTMLElement} button - The button element.
+            * @param {string} message - The feedback message.
+            * @param {string} className - The button's new class for success or failure.
+            */
+            function updateButtonFeedback(button, message, className, spinner) {
+                spinner.classList.add("hidden");
+                button.classList.remove("hidden")
+                button.innerHTML = message;
+                button.classList.remove("bg-blue-500", "bg-green-500", "bg-red-500");
+                button.classList.add(className);
+            }
+        
+        
+            document.querySelector('.newletterForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const submitButton = document.getElementById("submitButton");
+                const loadingSpinner = document.getElementById("loadingSpinner");
+                const emailInput = event.target.querySelector('input[type="email"]');
+                const email = emailInput.value;
+        
+                showLoadingSpinner(submitButton, loadingSpinner)
+                
+                fetch("{% url 'save_email' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken").value,
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        setTimeout(() => updateButtonFeedback(submitButton, "👌", "bg-[green-500]", loadingSpinner), 500);
+                        showToast(`${data.message}`, 'bg-[#111827]');
+                        emailInput.value = ''; // Clear the input field
+                    } else if (data.success) {
+                        setTimeout(() => updateButtonFeedback(submitButton, "Existed", "bg-[green-500]", loadingSpinner), 500);
+                        showToast(`${data.success}`, 'bg-[#111827]');
+                        emailInput.value = ''; // Clear the input field
+                    } else {
+                        setTimeout(() => updateButtonFeedback(submitButton, "Subscribe", "bg-gray-900", loadingSpinner), 500);
+                        showToast("Please, try again later", 'bg-red-500');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    setTimeout(() => updateButtonFeedback(submitButton, "Subscribe", "bg-gray-900", loadingSpinner), 500);
+                    showToast(`${errmsg}`, 'bg-red-500');
+                });
+                setTimeout(() => hideLoadingSpinner(submitButton, loadingSpinner, "Subscribe", "bg-gray-900"), 2000);
+            });
+
+        });
+    </script>
+</body>
+
+</html>

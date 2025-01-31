@@ -1,0 +1,133 @@
+{% extends "_base.html" %}
+
+
+
+{% load static %}
+{% comment %} {% load humanize %} {% endcomment %}
+
+
+<!-- title section -->
+{% block title %} | About Us{% endblock title %}
+
+
+<!-- upper header section -->
+{% block header %}
+  {% include "components/navbar.html" %}
+{% endblock header %}
+
+<!--content -->
+{% block content %}
+    <div class="relative bg-fixed w-full h-full bg-[#22313B] flex-grow"
+        style="background: no-repeat #22313B;">
+        <div class="absolute top-0 bottom-0 left-0 right-0 bg-gray-900 opacity-75"></div>
+        <div class="relative px-4 text-center md:mb-5 pt-10">
+            <p class="mb-2 text-lg font-semibold text-red-500 dark:text-gray-400">
+                About Us
+            </p>
+            <h2 class="pb-2 text-2xl font-bold text-white md:text-4xl dark:text-white">
+                What we do
+            </h2>
+            <div class="flex w-40 mt-1 mb-6 overflow-hidden rounded mx-auto md:mb-14">
+                <div class="flex-1 h-2 bg-red-200">
+                </div>
+                <div class="flex-1 h-2 bg-red-500">
+                </div>
+                <div class="flex-1 h-2 bg-red-300">
+                </div>
+            </div>
+        </div>
+        <div class="relative lg:h-[60vh] z-10 flex items-center bg-stone-100 pb-10 pt-5 font-poppins dark:bg-gray-800">
+            <div class="justify-center flex-1 max-w-6xl mx-auto md:px-6">
+                <div class="flex flex-wrap items-center">
+                    <!-- LEFT TEXT SIDE -->
+                    <div class="w-full px-4 md:w-1/2 lg:mb-0">
+                        <h2 class="mb-4 text-2xl font-bold text-gray-700 dark:text-gray-300">
+                            Step Up Your Style with Our Corporate Shoes
+                        </h2>
+                        <p class="mb-4 text-base leading-7 text-gray-500 dark:text-gray-400">
+                            At <strong>YourBrand</strong>, we specialize in premium corporate footwear that marries elegance, 
+                            comfort, and durability. Whether it’s a big boardroom meeting or a formal event, our collection 
+                            ensures you’re always dressed for success.
+                        </p>
+                        <ul class="mb-10">
+                            <li class="flex items-center mb-4 text-base text-gray-600 dark:text-gray-400">
+                            <span class="mr-3 text-red-600 dark:text-red-600">
+                                <!-- Arrow icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="w-5 h-5 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 
+                                        2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                                </svg>
+                            </span>
+                            100% Genuine Leather
+                            </li>
+                            <li class="flex items-center mb-4 text-base text-gray-600 dark:text-gray-400">
+                            <span class="mr-3 text-red-600 dark:text-red-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="w-5 h-5 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 
+                                        2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                                </svg>
+                            </span>
+                            Comfort for All-Day Wear
+                            </li>
+                            <li class="flex items-center mb-4 text-base text-gray-600 dark:text-gray-400">
+                            <span class="mr-3 text-red-600 dark:text-red-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="w-5 h-5 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 
+                                        2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                                </svg>
+                            </span>
+                            Unbeatable Pricing
+                            </li>
+                            <li class="flex items-center mb-4 text-base text-gray-600 dark:text-gray-400">
+                            <span class="mr-3 text-red-600 dark:text-red-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="w-5 h-5 bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 
+                                        2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                                </svg>
+                            </span>
+                            Exceptional Customer Support
+                            </li>
+                        </ul>
+                    </div>
+            
+                    <!-- RIGHT IMAGE SIDE -->
+                    <div class="relative w-full px-4 mt-10 md:mt-1 md:w-1/2 lg:mb-0">
+                    <!-- Replace this with any corporate shoe image you prefer -->
+                    <img 
+                        src="https://images.pexels.com/photos/267202/pexels-photo-267202.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                        alt="Corporate Shoes"
+                        class="relative z-40 object-cover w-full rounded-md md:h-96 h-44">
+                    
+                    <!-- Decorative SVG shape (optional) -->
+                    <div class="absolute top-0 right-0 items-center justify-center hidden -mt-16 lg:inline-flex">
+                        <!-- If you don’t need the decorative shape, remove the entire <svg> block -->
+                        <svg width="290" height="166" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- ...the same SVG paths/gradients as your original code... -->
+                        </svg>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+        <div class="relative py-20 items-center md:text-center">
+            <a href='{% url "commerce:category" %}' class="relative left-0 right-0 text-white text bg-[#B1250A] hover:bg-black font-medium text-xl px-5 py-2.5 mr-2 mt-20 dark:bg-[#B1250A] dark:hover:bg-[#B1250A] focus:outline-none dark:focus:ring-[#B1250A] py-3">Get your Shoe</a>
+        </div>
+        <div class="relative md:text-4xl text-xl text-center py-10 font-poppins text-white">
+            <h1>We Deal With Various Quality Shoes</h1>
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+
+
+<!-- footer content -->
+{% block footer %}
+  {% include "components/footer.html" %}
+{% endblock footer %}

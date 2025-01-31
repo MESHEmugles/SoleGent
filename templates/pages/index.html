@@ -1,0 +1,76 @@
+{% extends "_base.html" %}
+
+
+
+{% load static %}
+{% comment %} {% load humanize %} {% endcomment %}
+
+
+
+<!-- title section -->
+{% block title %} | Home{% endblock title %}
+
+
+<!-- upper header section -->
+{% block header %}
+  {% include "components/navbar.html" %}
+{% endblock header %}
+
+
+<!-- banner section -->
+{% block banner %}
+  {% include "components/banner.html" %}
+{% endblock banner %}
+
+<!--content -->
+{% block content %}
+<div class="mx-auto flex-grow w-full">
+  <!-- Auto-Scrolling Carousel -->
+  <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+    <h2 class="text-2xl lg:text-5xl font-extrabold text-gray-900 lg:mb-20">Trending Now</h2>
+    <div class="relative overflow-hidden group">
+      <div class="owl-carousel owl-theme md:max-w-4xl mx-auto mt-8 md:mt-1">
+        {% for ban in banner %}
+          {% for ban in ban.banner %}
+            <div class="item float-left max-w-xs md:max-w-2xl border border-gray-200 rounded-lg shadow-lg">
+              <a disabled>
+                <img class="lg:w-96 lg:h-80" src="{{ ban.image.url }}" alt="{{ ban.alt_text }}" title="{{ ban.alt_text }}"/>
+              </a>
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <!-- ############### card ############## -->
+  <!-- Collections Section -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2 lg:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {% for ban in banner %}
+        {% for ban in ban.otherbanner %}
+          <div class="relative rounded-xl overflow-hidden">
+            <img src="{{ ban.image.url }}" alt="{{ ban.alt_text }}" class="w-full h-96 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
+              <a href="{% url 'commerce:category' %}" class="text-white text-2xl font-bold hover:text-gray-200 transition-colors">
+                {{ ban.title }} →
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+<!-- newsletter content -->
+{% block newsletter %}
+  {% include "components/newsletter.html" %}
+{% endblock newsletter %}
+
+
+<!-- footer content -->
+{% block footer %}
+  {% include "components/footer.html" %}
+{% endblock footer %}

@@ -1,0 +1,43 @@
+{% load static %}   
+
+<main>
+    <div class="footer bg-[#001425] relative bottom-0">
+        <div class="semiFooter pb-6">
+        <div class="flex flex-col md:flex-row justify-between mx-6 pt-6 pb-6 mb-6">
+            <div class="ml-6 pl-6 mt-6 pt-6">
+                {% comment %} <img src="{% static '' %}image/logo2.png" alt="" width="70" height="70" /> {% endcomment %}
+                <span class="self-center text-base lg:text-2xl font-semibold whitespace-nowrap text-white">LOGO</span>
+                <p class="text-sm text-white font-sans font-bold leading-6 w-72">Your No.1 Destination for Premium Sneakers – Authentic, Stylish, and Built for Comfort!.</p>
+            </div>
+            <div class="mr-6 flex flex-col gap-7 mt-6 pt-6">
+            <div>
+                <form>   
+                    <label htmlFor="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                        </div>
+                        <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Not working yet..." required />
+                        <a href='/'  class="absolute right-2.5 bottom-3.5 hover:bg-blue-800" disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="blue" height="1.3em" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                        </a>
+                        {% comment %} {/* <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button> */} {% endcomment %}
+                    </div>
+                </form>
+            </div>
+            <div>
+                <img src="{% static '' %}image/payment.png" alt="" width="300" height="300" />
+            </div>
+            
+
+            </div>
+        </div>
+        <hr class="opacity-25 font-normal" />
+        <div class="text-center text-white text-xs font-normal font-sans leading-6 mt-5">
+            <p class="">Copyright © 2024 | Jojo | Managed by <span class="text-[#B1250A]">Moogles</span></p>
+        </div>
+        </div>
+    </div>
+</main>

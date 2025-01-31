@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+        <div class="mb-6">
+            <svg class="mx-auto h-16 w-16 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
+        
+        <h1 class="text-2xl font-bold text-gray-800 mb-4">Payment Successful! 🎉</h1>
+        <p class="text-gray-600 mb-6">
+            Thank you for your payment! We've received your order and will contact you via 
+            email or phone call within 24 hours to confirm your delivery details.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'commerce:category' %}" 
+               class="px-6 py-2 bg-[#B1250A] text-white rounded-md hover:bg-[#9a1f08] transition-colors">
+               Continue Shopping
+            </a>
+            <a href="/" 
+               class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">
+               Go to Homepage
+            </a>
+        </div>
+    </div>
+</body>
+</html>
