@@ -94,10 +94,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config("DB_NAME") or 'postgres',
-            'USER': config("DB_USER") or 'postgres.jjeygafjmlezpcmhvgar',
-            'PASSWORD': config("DB_PASSWORD") or 'MEShe19682002.',
-            'HOST': config("DB_HOST") or 'aws-0-eu-central-1.pooler.supabase.com',
+            'NAME': config("DB_NAME"),
+            'USER': config("DB_USER"),
+            'PASSWORD': config("DB_PASSWORD"),
+            'HOST': config("DB_HOST"),
             'PORT': '5432',
             'OPTIONS': {'sslmode': 'require'},
         }
