@@ -1,6 +1,7 @@
 import requests
 import json
 import uuid
+import os
 
 
 from django.shortcuts import render
@@ -96,7 +97,7 @@ def paidorder(request):
 
     if order.payment_method == 'card':
         api_key= config('PAYSTACK_API_KEY')
-        curl= config('PAYSTACK_CURL_URL')
+        curl= config('PAYSTACK_CURL')
         # cburl = 'http://3.89.180.169/thankyou'
         cburl = config('PAYSTACK_CBURL')
 
