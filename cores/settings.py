@@ -291,10 +291,10 @@ JAZZMIN_SETTINGS = {
     "site_title": "Admin",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Admin",
+    "site_header": "SoleGent",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Admin",
+    "site_brand": "Sole Gent",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "",
@@ -312,7 +312,7 @@ JAZZMIN_SETTINGS = {
     "site_icon": "image/logo1.png",
 
     # Welcome text on the login screen
-    "welcome_sign": "Welcome to MYSHOE WEBSITE",
+    "welcome_sign": "Welcome to Sole Gent WEBSITE",
 
     # Copyright on the footer
     "copyright": "Acme MooglesMe",
