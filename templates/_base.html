@@ -81,7 +81,7 @@
                 items: 3,
                 fluidSpeed: 200,
                 smartSpeed: 1000,
-                responsive: {0: {items: 1,},400: {items: 2,},600: {items: 3,}, }
+                responsive: {0: {items: 1,},400: {items: 2,},600: {items: 2,}, }
             });
 
             function showToast(message, bgColor) {
@@ -309,6 +309,40 @@
                 setTimeout(() => hideLoadingSpinner(submitButton, loadingSpinner, "Subscribe", "bg-gray-900"), 2000);
             });
 
+            const productCards = document.querySelectorAll('.product-card');
+  
+            productCards.forEach(card => {
+              const overlay = card.querySelector('.image-overlay');
+              const productLink = card.querySelector('a[href*="detail"]');
+              const form = card.querySelector('form');
+          
+              // Desktop hover
+              card.addEventListener('mouseenter', () => overlay.classList.add('opacity-100'));
+              card.addEventListener('mouseleave', () => overlay.classList.remove('opacity-100'));
+          
+              // Mobile touch handling
+              card.addEventListener('touchstart', (e) => {
+                if (!e.target.closest('a, button')) {
+                  e.preventDefault();
+                  overlay.classList.toggle('active');
+                }
+              });
+          
+              // Close overlay when clicking outside
+              document.addEventListener('touchstart', (e) => {
+                if (!card.contains(e.target)) {
+                  overlay.classList.remove('active');
+                }
+              });
+          
+              // Handle link clicks properly
+              productLink.addEventListener('click', (e) => {
+                if (window.innerWidth < 768) {
+                  e.preventDefault();
+                  window.location.href = productLink.href;
+                }
+              });
+            });
         });
     </script>
 </body>

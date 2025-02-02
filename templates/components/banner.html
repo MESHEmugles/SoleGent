@@ -1,24 +1,38 @@
 {% load static %}
 
 <div class="">
-    <div class="relative bg-gray-900 py-4">
-        <div class="max-w-full mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-            <div class="fade-in text-center">
-                <h1 class="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
-                    Walk in Style, Stride with Comfort
-                </h1>
-                <p class="mt-3 max-w-md mx-auto text-base text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                    Discover premium footwear crafted for modern lifestyles
-                </p>
-                <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-                    <a href="{% url 'commerce:category' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 transition-colors duration-300">
-                        Explore Collection
-                    </a>
-                </div>
+    <!-- Use flex to center content vertically and horizontally on mobile (h-80).
+         On md (medium) and larger screens, expand to full screen height. -->
+    <div class="relative bg-gray-900 h-80 md:h-screen flex items-center justify-center">
+        <!-- Text Container -->
+        <!-- Reduce padding for mobile, then increase it (sm:px-6, lg:px-8) for larger screens. -->
+        <div class="text-center px-4 sm:px-6 lg:px-8 fade-in">
+            <!-- Heading: smaller on mobile, bigger on sm, largest on md+ -->
+            <h1 class="text-xl sm:text-3xl md:text-6xl font-extrabold text-white py-3">
+                Walk in Style, Stride with Comfort
+            </h1>
+    
+            <!-- Paragraph: text-sm on mobile, sm:text-lg on small screens, md:text-xl on medium+ -->
+            <p class="mt-3 max-w-md mx-auto text-sm sm:text-lg md:text-xl text-gray-300">
+                Discover premium footwear crafted for modern lifestyles
+            </p>
+    
+            <!-- Button Section: margin top changes from mt-5 to sm:mt-8 on bigger screens -->
+            <div class="mt-5 sm:mt-8 flex justify-center">
+                <a
+                    href="{% url 'commerce:category' %}"
+                    class="inline-flex items-center px-4 py-2 sm:px-6 sm:py-3
+                        border border-transparent text-sm sm:text-base
+                        font-medium rounded-md text-white bg-red-600
+                        hover:bg-red-700 transition-colors duration-300"
+                >
+                    Explore Collection
+                </a>
             </div>
         </div>
     </div>
-</div>
+  </div>
+  
 
 
 
