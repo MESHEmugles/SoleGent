@@ -45,7 +45,51 @@
     </div>
   {% endif %}
 
-  <section class="py-6 md:py-16 bg-gray-100">
+  <!-- Featured Products (Mobile View) -->
+  <div class="block md:hidden bg-gray-100 py-16">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl text-center mb-8">Featured Products</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- Product Card -->
+        {% if prodlist %}
+          {% for item in prodlist %}
+            <div class="bg-transparent group">
+              <a href="{% url 'commerce:detail' item.slug %}">
+                {% if item.cloundImage is not True %}
+                    <img src="{{ item.image.url }}" alt="product img" class="w-full h-40 md:h-64 hover:opacity-90 object-cover"/>
+                    {% else %}
+                    <img src="{{ item.cloundImage.url }}" alt="product img" class="w-full h-40 md:h-64 object-cover hover:opacity-90"/> 
+                {% endif %}
+              </a>
+              <div class="p-4 border border-1 shadow-lg">
+                <a href="{% url 'commerce:category' %}">
+                  <h3 class="text-xs md:text-sm font-semibold">{{ item.category.name }}</h3>
+                </a>
+                <a href="{% url 'commerce:detail' item.slug %}">
+                  <p class="text-gray-600 text-sm md:text-base mb-2 md:mb-3">{{ item.name }}</p>
+                </a>
+                <p class="text-gray-600">₦{{item.price|intcomma}}</p>
+                <form action="{% url 'commerce:addtocart' %}" method="POST" class="d-flex">
+                {% csrf_token %}
+                  <input type="hidden"
+                      name="quantity" class="" placeholder="1" value="1">
+    
+                  <input type="hidden" name="prodids" value="{{item.pk}}">
+                  
+                  <div class="flex md:items-center justify-between mt-3">
+                    <button href="#" type= "submit" name="cart" value="cart" class="text-white bg-[#B1250A] hover:bg-black focus:ring-4 focus:outline-none focus:ring-black font-bold rounded-lg text-sm px-4 py-2 text-center dark:bg-[#B1250A] dark:hover:bg-black dark:focus:ring-[#B1250A]">Add to cart</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          {% endfor %} 
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- about Section (Desktop View) -->
+  <section class="hidden md:block py-6 md:py-16 bg-gray-100">
     <div class="container mx-auto px-6">
       <div class="md:flex md:flex-row md:justify-between md:items-center">
         <div class="md:w-1/2 mb-8 md:mb-0 hidden md:block">
@@ -64,15 +108,15 @@
           </div>
         </div>
         <div class="md:w-1/2 md:pl-12">
-          <h2 class="text-xl md:text-3xl font-bold mb-4 text-center">
+          <h2 class="text-xl md:text-3xl font-bold mb-4 text-center md:text-start">
             Timeless Design & Quality Craftsmanship
           </h2>
-          <p class="mb-4 italic">
+          <p class="mb-4 italic md:not-italic">
             Our shoes are made with the finest materials and the most
             passionate Italian artisans. Each pair is a masterpiece that
             combines tradition with modern design.
           </p>
-          <p class="italic">
+          <p class="italic md:not-italic">
             Experience comfort, style, and durability that stand the test of
             time.
           </p>
@@ -89,7 +133,7 @@
         {% for ban in ban.otherbanner %}
           <div class="relative rounded-xl overflow-hidden">
             <img src="{{ ban.image.url }}" alt="{{ ban.alt_text }}" class="w-full h-64 lg:h-96 object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-[#111827] to-[#111827] flex items-end p-8">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-[#111827]/70 to-[#111827]/70 flex items-end p-8">
               <a href="{% url 'commerce:category' %}" class="text-white text-xs md:text-2xl font-bold hover:text-gray-200 transition-colors">
                 {{ ban.title }} →
               </a>
@@ -100,14 +144,51 @@
     </div>
   </div>
 
-  <!-- Featured Products -->
-  <div class="bg-gray-100 py-16">
+  <!-- about Section (Mobile View) -->
+  <section class="block md:hidden py-6 md:py-16 bg-gray-100">
+    <div class="container mx-auto px-6">
+      <div class="md:flex md:flex-row md:justify-between md:items-center">
+        <div class="md:w-1/2 mb-8 md:mb-0 hidden md:block">
+          <div class="relative overflow-hidden group">
+            <div class="owl-carousel owl-theme mx-auto mt-8 md:mt-1">
+              {% for ban in banner %}
+                {% for ban in ban.banner %}
+                  <div class="item float-left max-w-xs md:max-w-2xl border border-gray-200 rounded-lg shadow-lg">
+                    <a>
+                      <img class="lg:w-96 lg:h-80" src="{{ ban.image.url }}" alt="{{ ban.alt_text }}" title="{{ ban.alt_text }}"/>
+                    </a>
+                  </div>
+                {% endfor %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2 md:pl-12">
+          <h2 class="text-xl md:text-3xl font-bold mb-4 text-center md:text-start">
+            Timeless Design & Quality Craftsmanship
+          </h2>
+          <p class="mb-4 italic md:not-italic">
+            Our shoes are made with the finest materials and the most
+            passionate Italian artisans. Each pair is a masterpiece that
+            combines tradition with modern design.
+          </p>
+          <p class="italic md:not-italic">
+            Experience comfort, style, and durability that stand the test of
+            time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products (Desktop View) -->
+  <div class="hidden md:block bg-gray-100 py-16">
     <div class="container mx-auto px-6">
       <h2 class="text-3xl text-center mb-8">Featured Products</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <!-- Product Card -->
         {% if prodlist %}
-          {% for item in prodlist  %}
+          {% for item in prodlist %}
             <div class="bg-transparent group">
               <a href="{% url 'commerce:detail' item.slug %}">
                 {% if item.cloundImage is not True %}
