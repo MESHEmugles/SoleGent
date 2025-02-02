@@ -19,7 +19,7 @@
 
 <!--content -->
 {% block content %}
-<div class="mt-10 md:mt-5 flex-grow overflow-x-hidden">
+<div class="md:mt-5 flex-grow overflow-x-hidden">
   {% if messages %}
     <div id="alert-container" class="fixed top-4 right-4 space-y-4 z-[99]">
       {% for message in messages %}
@@ -38,19 +38,19 @@
       {% endfor %}
     </div>
   {% endif %}
-  <div class="flex flex-col md:flex-row my-10 md:my-5">
-    <div class="md:w-3/4 bg-[#F2F4F7] px-3 md:px-10 py-10 md:py-5">
+  <div class="flex flex-col md:flex-row my-3 md:my-5">
+    <div class="md:w-3/4 bg-[#F2F4F7] px-3 md:px-10 py-5 md:py-5">
       <div class="flex justify-between border-b pb-8">
-        <h1 class="font-bold text-2xl md:text-4xl">Cart</h1>
+        <h1 class="font-bold text-base md:text-4xl">Cart</h1>
         {% with total_qty=cart|length %}
           {% if total_qty > 0 %}
-            <h2 class="font-semibold text-xl md:text-2xl"><span id="count">{{total_qty}}</span> Items</h2>
+            <h2 class="font-semibold text-base md:text-2xl"><span id="count">{{total_qty}}</span> Items</h2>
           {% else %}
-            <h2 class="font-semibold text-xl md:text-2xl">0 Items</h2>
+            <h2 class="font-semibold text-base md:text-2xl">0 Items</h2>
           {% endif %}
         {% endwith %}
       </div>
-      <div class="flex mt-10 mb-5">
+      <div class="flex mt-4 md:mt-10 mb-0 md:mb-5">
         <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
         <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
         <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
@@ -61,10 +61,10 @@
           <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
                 <div class="flex w-2/5"> <!-- product -->
                   <div class="w-20">
-                    <img class="h-24" src="{{items.image}}" alt="">
+                    <img class="h-10 md:h-24" src="{{items.image}}" alt="">
                   </div>
                   <div class="flex flex-col justify-between ml-4 flex-grow">
-                    <span class="font-bold text-sm">{{items.name}}</span>
+                    <span class="font-bold text-xs md:text-sm">{{items.name}}</span>
                     <span class="text-red-500 text-xs">{{items.category.name}}</span>
                     <form action="{% url 'commerce:remove_item' %}" method="POST">
                       {% csrf_token %}
@@ -89,13 +89,13 @@
                     <span id="incrementBtn" class="fill-current text-gray-600 w-3 text-2xl font-thin">+</span>
                   </button>
                 </div>
-                <span class="text-center w-1/5 font-semibold text-sm">₦{{items.price|floatformat:2|intcomma}}</span>
-                <p class="text-center w-1/5 font-semibold text-sm">₦<span id="price">{{items.price|mul:item.qnt|floatformat:2|intcomma}}</span></p>
+                <span class="text-center w-1/5 font-semibold text-xs md:text-sm">₦{{items.price|floatformat:2|intcomma}}</span>
+                <p class="text-center w-1/5 font-semibold text-xs md:text-sm">₦<span id="price">{{items.price|mul:item.qnt|floatformat:2|intcomma}}</span></p>
           </div>
         {% endwith %}
       {% endfor %}
 
-      <a href="{% url 'commerce:category' %}" class="flex font-semibold text-[#B1250A] text-sm mt-10">
+      <a href="{% url 'commerce:category' %}" class="flex font-semibold text-[#B1250A] text-xs md:text-sm mt-10">
     
         <svg class="fill-current mr-2 text-[#B1250A] w-4" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"/></svg>
         Continue Shopping
@@ -103,17 +103,17 @@
     </div>
 
     <div id="summary" class="md:w-1/4 px-3 md:px-8 py-10 md:py-5">
-      <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
-      <div class="flex justify-between mt-10 mb-5">
+      <h1 class="font-semibold text-base md:text-2xl border-b pb-5 md:pb-8">Order Summary</h1>
+      <div class="flex justify-between mt-3 md:mt-10 mb-2 md:mb-5">
           {% with total_qty=cart|length %}
             {% if total_qty > 0 %}
-              <h1 class="font-semibold text-sm uppercase">Items <span id="counts">{{total_qty}}</span></h1>
+              <h1 class="font-semibold text-xs md:text-sm uppercase">Items <span id="counts">{{total_qty}}</span></h1>
             {% else %}
-              <span class="font-semibold text-sm uppercase">Items 0</span>
+              <span class="font-semibold text-xs md:text-sm uppercase">Items 0</span>
             {% endif %}
           {% endwith %}
 
-          <span class="font-semibold text-sm">₦ <small id="subtotal">{{subtotal|floatformat:2|intcomma}}</small></span>
+          <span class="font-semibold text-xs md:text-sm">₦ <small id="subtotal">{{subtotal|floatformat:2|intcomma}}</small></span>
           {% comment %} {% if cart %}
           {% endif %} {% endcomment %}
       </div>
@@ -122,12 +122,12 @@
         <input type="text" id="promo" placeholder="Enter your code" class="p-2 text-sm w-full">
       </div>
       <button class="bg-[#B1250A] hover:bg-[#B1250A] px-5 py-2 text-sm text-white uppercase" disabled>Apply</button> {% endcomment %}
-      <div class="border-t mt-8">
-        <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+      <div class="border-t md:mt-8">
+        <div class="flex font-semibold justify-between py-6 text-xs md:text-sm uppercase">
           <span>Total cost</span>
           <span>₦{{subtotal|floatformat:2|intcomma}}</span>
         </div>
-        <a href="{% url 'productcart:checkout' %}" class="bg-[#B1250A] px-10 font-semibold hover:bg-[#B1250A] py-3 text-sm text-white uppercase max-w-xl">Checkout</a>
+        <a href="{% url 'productcart:checkout' %}" class="bg-[#B1250A] px-6 md:px-10 font-semibold hover:bg-[#B1250A] py-3 text-xs md:text-sm text-white uppercase max-w-xl">Checkout</a>
       </div>
     </div>
 

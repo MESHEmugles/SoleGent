@@ -19,7 +19,7 @@ class G:
     image = CarouselImage.objects.all()
 
 
-def index(request,category_slug= None):
+def index(request, category_slug= None):
     product = G.prod
     cateogry = None
     today = datetime.now()
@@ -29,18 +29,20 @@ def index(request,category_slug= None):
         category = get_object_or_404(Category, slug = category_slug)
         product = G.prod.filter(category=category)[:5]
     
+    prod = product[:4]
+    
     newlisting = product.filter(created__range = [day_before_yesterday, today.strftime('%Y-%m-%d')] )
 
 
-    return render(request, 'pages/index.html', {"product":product, 'newlisted':newlisting})
+    return render(request, 'pages/index.html', {"product":product, 'newlisted':newlisting, 'prodlist': prod})
 
-def about(request):
+# def about(request):
     
-    return render(request, 'pages/aboutus.html')
+#     return render(request, 'pages/aboutus.html')
 
-def contact(request):
+# def contact(request):
     
-    return render(request, 'pages/contact.html')
+#     return render(request, 'pages/contact.html')
 
 
 def save_email(request):

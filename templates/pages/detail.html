@@ -84,14 +84,14 @@
             <div class="w-full px-4 md:w-1/2 ">
                 <div class="lg:pl-20">
                     <div class="pb-4 md:pb-6 border-b border-gray-200 dark:border-gray-700">
-                        <a href="{% url 'commerce:category' %}" class="text-base md:text-xl md:text-lg font-medium text-rose-500 dark:text-rose-200"><small class="text-black text-bold">Category:</small> {{prod.category.name}}</a>
-                        <h2 class="max-w-xl mt-2 mb-6 font-medium md:font-normal dark:text-gray-300 text-2xl md:text-4xl">
+                        <a href="{% url 'commerce:category' %}" class="text-sm md:text-lg font-medium text-rose-500 dark:text-rose-200"><small class="text-black text-bold">Category:</small> {{prod.category.name}}</a>
+                        <h2 class="max-w-xl mt-2 mb-6 font-medium md:font-normal dark:text-gray-300 text-xl md:text-4xl">
                             {{prod.name}}
                         </h2>
-                        <p class="inline-block text-2xl pb-5 font-semibold text-gray-700 dark:text-gray-400 ">
+                        <p class="inline-block text-base md:text-2xl pb-5 font-semibold text-gray-700 dark:text-gray-400 ">
                             <span>₦{{prod.price}}</span>
                             <span
-                                class="text-base font-normal text-gray-500 line-through dark:text-gray-400">₦{{prod.oldprice}}
+                                class="text-sm lg:text-base font-normal text-gray-500 line-through dark:text-gray-400">₦{{prod.oldprice}}
                             </span>
                         </p>
                         <p class="max-w-md text-gray-700 dark:text-gray-400">
@@ -99,7 +99,7 @@
                         </p>
 
                     </div>
-                    <span class="text-black text-bold float-right">Tags:
+                    <span class="text-black text-bold float-right text-sm md:text-base">Tags:
                         {% if prod %}
                             {% for tag in prod.tags.all %}
                                 <a href="{% url 'commerce:tags_by_tag' tag.slug %}" class="text-rose-500 dark:text-rose-200"><small>{{tag.name}}</small></a>
@@ -112,19 +112,19 @@
                             <div class="w-28">
                                 <div class="relative flex flex-row w-full h-10 bg-transparent rounded-lg">
                                     <button
-                                        class="w-20 h-full text-gray-600 bg-gray-100 border-r rounded-l outline-none cursor-pointer dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 hover:text-gray-700 dark:bg-gray-900 hover:bg-gray-300">
-                                        <span id="decrementBtn" class="m-auto text-2xl font-thin">-</span>
+                                        class="w-10 h-full text-gray-600 bg-gray-100 border-r rounded-l outline-none cursor-pointer dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 hover:text-gray-700 dark:bg-gray-900 hover:bg-gray-300 md:w-20">
+                                        <span id="decrementBtn" class="m-auto text-xl font-thin md:text-2xl">-</span>
                                     </button>
                                     <form action="{% url 'commerce:addtocart' %}" method="POST" class="formdetail d-flex">
                                     {% csrf_token %}
                                         <input id="quantityInput" type="number"
-                                            name="quantity" class="quantityInput flex items-center w-full font-semibold text-center text-gray-700 placeholder-gray-700 bg-gray-100 outline-none dark:text-gray-400 dark:placeholder-gray-400 dark:bg-gray-900 focus:outline-none text-md hover:text-black"
+                                            name="quantity" class="quantityInput flex items-center w-full font-semibold text-center text-gray-700 placeholder-gray-700 bg-gray-100 outline-none dark:text-gray-400 dark:placeholder-gray-400 dark:bg-gray-900 focus:outline-none text-sm md:text-md hover:text-black"
                                             value="{{quantity}}">
                                         <input type="hidden" id="prodid" class="prodid" name="prodids" value="{{prod.pk}}">
                                     </form>
                                     <button
-                                        class="w-20 h-full text-gray-600 bg-gray-100 border-l rounded-r outline-none cursor-pointer dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:bg-gray-900 hover:text-gray-700 hover:bg-gray-300">
-                                        <span id="incrementBtn" class="m-auto text-2xl font-thin">+</span>
+                                        class="w-10 h-full text-gray-600 bg-gray-100 border-l rounded-r outline-none cursor-pointer dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:bg-gray-900 hover:text-gray-700 hover:bg-gray-300 md:w-20">
+                                        <span id="incrementBtn" class="m-auto text-xl font-thin md:text-2xl">+</span>
                                     </button>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                                 <input type="hidden" id="buyid" class="buyid" name="buyid" value="{{prod.pk}}">
                                 <button
                                     name="buy" id="buy" value="buy"
-                                    class="w-full h-10 p-2 mr-4 bg-red-500 dark:text-gray-200 text-gray-50 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500">
+                                    class="w-full h-10 text-sm md:text-base p-2 mr-4 bg-red-500 dark:text-gray-200 text-gray-50 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500">
                                     Buy Now</button>
                             </form>
                         </div>
@@ -147,17 +147,6 @@
                                     class="bi bi-cart" viewBox="0 0 16 16">
                                     <path
                                         d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="mb-4 lg:mb-0">
-                            <button
-                                disabled
-                                class="flex items-center justify-center w-full h-10 p-2 text-gray-700 border border-gray-300 lg:w-11 hover:text-gray-50 dark:text-gray-200 dark:border-red-600 hover:bg-red-600 hover:border-red-600 dark:bg-red-600 dark:hover:bg-red-500 dark:hover:border-red-500 dark:hover:text-gray-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class=" bi bi-heart" viewBox="0 0 16 16">
-                                    <path
-                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                                 </svg>
                             </button>
                         </div>
@@ -197,14 +186,14 @@
                                     <img id='img' class="h-28 lg:h-48 w-11/12 lg:w-screen" src="{{ item.cloundImage.url }}" alt="product img" /> 
                                 {% endif %}
                             </a>
-                            <div class="md:px-1 pb-5 py-3">
+                            <div class="md:px-1 pb-2 py-3">
                                 <a href="{% url 'commerce:category' %}">
-                                    <p class="text-sm font-sans leading-6 font-normal text-[#3a3a3a]">{{ item.category.name }}</p>
+                                    <p class="text-xs md:text-sm font-sans leading-6 font-normal text-[#3a3a3a]">{{ item.category.name }}</p>
                                 </a>
                                 <a href="{% url 'commerce:detail' item.slug %}">
-                                    <h5 class="text-base font-sans leading-6 font-bold text-black">{{item.name}}</h5>
+                                    <h5 class="text-xs md:text-base font-sans leading-6 font-bold text-black">{{item.name}}</h5>
                                 </a>
-                                <div class="flex items-center mt-2.5 mb-5">
+                                <div class="flex items-center mt-2 mb-3">
                                     <span class="text-sm font-bold text-[#3a3a3a] leading-6">₦{{item.price|intcomma}}</span>
                                 </div>
                                 <form action="{% url 'commerce:addtocart' %}" method="POST" class="d-flex">
@@ -215,7 +204,7 @@
                                     <input type="hidden" name="prodids" value="{{item.pk}}">
                                     
                                     <div class="flex md:items-center justify-between">
-                                        <button href="#" type= "submit" name="cart" value="cart" class="text-white bg-[#B1250A] hover:bg-black focus:ring-4 focus:outline-none focus:ring-black font-bold rounded-lg text-base px-5 py-2.5 text-center dark:bg-[#B1250A] dark:hover:bg-black dark:focus:ring-[#B1250A]">Add to cart</button>
+                                        <button href="#" type= "submit" name="cart" value="cart" class="text-white bg-[#B1250A] hover:bg-black focus:ring-4 focus:outline-none focus:ring-black font-bold rounded-lg text-xs md:text-base px-3 py-2 text-center dark:bg-[#B1250A] dark:hover:bg-black dark:focus:ring-[#B1250A]">Add to cart</button>
                                     </div>
                                 </form>
                             </div>
